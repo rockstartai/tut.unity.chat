@@ -1,0 +1,17 @@
+/Temp
+/obj
+/Library
+/Logs
+/.vs
+*.apk
+/*.csproj
+/*.sln
+*.csproj.user
+*.sln.DotSettings
+/Build
+/Assets/ThirdParty/TextMesh Pro/Examples & Extras
+/Build-Branch-OrphanedForTesting
+/*.log
+.DS_Store
+/UserSettings
+.VSCodeCounter
