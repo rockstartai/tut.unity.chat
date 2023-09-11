@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Rockstart.Unity.Tut.Chat
 {
-	public class ChatView : MonoBehaviour, IMessageHandler
+	public class Chat : MonoBehaviour, IMessageHandler
 	{
 		[SerializeField] TMPro.TMP_InputField _nickInput;
 		[SerializeField] Button _enterButton;
