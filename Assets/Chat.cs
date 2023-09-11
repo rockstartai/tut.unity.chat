@@ -15,6 +15,7 @@ namespace Rockstart.Unity.Tut.Chat
 		[SerializeField] TMPro.TMP_InputField _msgInput;
 		[SerializeField] Button _sendButton;
 
+		bool _isSending;
 		IChatClient _client;
 		string _nick;
 
@@ -25,6 +26,14 @@ namespace Rockstart.Unity.Tut.Chat
 			_client.SetMessageHandler(this);
 			_enterButton.onClick.AddListener(OnStartClicked);
 			_sendButton.onClick.AddListener(OnSendClicked);
+
+			_nickInput.onSubmit.AddListener(_ => OnStartClicked());
+			_msgInput.onSubmit.AddListener(_ => OnSendClicked());
+		}
+
+		void Update()
+		{
+			_sendButton.interactable = CanSend();
 		}
 
 		void OnStartClicked()
@@ -44,9 +53,19 @@ namespace Rockstart.Unity.Tut.Chat
 			_msgController.Init(_nick);
 		}
 
+		bool IsInputValid()
+		{
+			return _msgInput.text != string.Empty;
+		}
+
+		bool CanSend()
+		{
+			return !_isSending && IsInputValid();
+		}
+
 		void OnSendClicked()
 		{
-			if (_msgInput.text == string.Empty)
+			if (!CanSend())
 				return;
 
 			var msg = new SentMessageDto
@@ -54,14 +73,23 @@ namespace Rockstart.Unity.Tut.Chat
 				username = _nick,
 				text = _msgInput.text,
 			};
+			_sendButton.interactable = false;
+			_msgInput.interactable = false;
 
 			_ = SendAsync(msg);
-			_msgInput.text = "";
 		}
 
 		async Task SendAsync(SentMessageDto msg)
 		{
 			await _client.SendAsync(msg);
+
+			_msgInput.DeactivateInputField();
+			_msgInput.text = "";
+			_sendButton.interactable = true;
+			_msgInput.interactable = true;
+
+			if (!Application.isMobilePlatform)
+				_msgInput.ActivateInputField();
 		}
 
 		void IMessageHandler.HandleMessage(ReceivedMessageDto msg)
