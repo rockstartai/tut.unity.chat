@@ -1,15 +1,13 @@
 using Rockstart.Unity.Tut.Chat.Client;
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Rockstart.Unity.Tut.Chat.ScrollView
 {
 	public class MessageView: MonoBehaviour
 	{
-		public Text username;
-		public Text text;
-		public Text date;
+		public TMPro.TextMeshProUGUI username;
+		public TMPro.TextMeshProUGUI text;
+		public TMPro.TextMeshProUGUI date;
 
 
 		public void UpdateViews(ReceivedMessageDto msg)

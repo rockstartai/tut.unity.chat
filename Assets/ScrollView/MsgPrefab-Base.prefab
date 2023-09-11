@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3144785795976713205}
   - component: {fileID: 3144785795976713202}
   m_Layer: 5
-  m_Name: Sender
+  m_Name: Username
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 3144785796350627675}
   - component: {fileID: 3144785796350627676}
   - component: {fileID: 6843946517418768510}
+  - component: {fileID: 6371576298194876299}
   m_Layer: 5
   m_Name: MsgPrefab-Base
   m_TagString: Untagged
@@ -201,13 +202,28 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 0
-  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6371576298194876299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3144785796350627672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e17e84614a029234db6b80c3f329505d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  username: {fileID: 3144785795976713202}
+  text: {fileID: 3144785796415051548}
+  date: {fileID: 3144785796504872229}
 --- !u!1 &3144785796415051546
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +236,7 @@ GameObject:
   - component: {fileID: 3144785796415051551}
   - component: {fileID: 3144785796415051548}
   m_Layer: 5
-  m_Name: Msg
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

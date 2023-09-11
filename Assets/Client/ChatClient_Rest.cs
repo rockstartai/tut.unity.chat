@@ -17,6 +17,7 @@ namespace Rockstart.Unity.Tut.Chat.Client
 		bool _isInitialized;
 		Coroutine _retrieveMessagesCoroutine;
 		long _lastReceivedTimestamp = 0;
+		float _lastUpdate = 0f;
 
 
 		Task IChatClient.InitAsync()
@@ -30,7 +31,11 @@ namespace Rockstart.Unity.Tut.Chat.Client
 			if (!_isInitialized)
 				return;
 
-			RetrieveMessages();
+			if (Time.time - _lastUpdate > 1f)
+			{
+				_lastUpdate = Time.time;
+				RetrieveMessages();
+			}
 		}
 
 		void OnDisable()
@@ -89,24 +94,25 @@ namespace Rockstart.Unity.Tut.Chat.Client
 		IEnumerator GetMessagesCoroutine()
 		{
 			var www = UnityWebRequest.Get(_endpoint + "/messages?timestamp=" + _lastReceivedTimestamp);
+			//var www = UnityWebRequest.Get(_endpoint + "/messages");
+			www.timeout = 5;
 			yield return www.SendWebRequest();
 
 			if (www.result == UnityWebRequest.Result.Success)
 			{
 				var text = www.downloadHandler.text;
-				if (string.IsNullOrEmpty(text))
-					yield break;
-
-				var receivedMessages = JsonConvert.DeserializeObject<List<ReceivedMessageDto>>(text);
-
-				for (int i = 0; i < receivedMessages.Count; i++)
+				if (!string.IsNullOrEmpty(text))
 				{
-					_messageHandler?.HandleMessage(receivedMessages[i]);
+					var receivedMessages = JsonConvert.DeserializeObject<List<ReceivedMessageDto>>(text);
 
-					// Update the last received timestamp if the new one is bigger.
-					if (receivedMessages[i].timestamp > _lastReceivedTimestamp)
+					for (int i = 0; i < receivedMessages.Count; i++)
 					{
-						_lastReceivedTimestamp = receivedMessages[i].timestamp;
+						// Update the last received timestamp if the new one is bigger.
+						if (receivedMessages[i].timestamp > _lastReceivedTimestamp)
+						{
+							_messageHandler?.HandleMessage(receivedMessages[i]);
+							_lastReceivedTimestamp = receivedMessages[i].timestamp;
+						}
 					}
 				}
 			}
@@ -114,6 +120,7 @@ namespace Rockstart.Unity.Tut.Chat.Client
 			{
 				Debug.LogError("Error retrieving messages: " + www.error);
 			}
+			_retrieveMessagesCoroutine = null;
 		}
 
 		void OnApplicationQuit()

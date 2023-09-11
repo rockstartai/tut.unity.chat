@@ -1128,7 +1128,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -834.8738}
+  m_AnchoredPosition: {x: 0, y: -834.8734}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1379643624
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05611ed797dc05145830fecdb21a958f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _endpoint: https://jittery-duck-blazer.cyclic.app:3000
+  _endpoint: https://jittery-duck-blazer.cyclic.app
 --- !u!1 &1893923156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,7 +1552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1379643623}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1

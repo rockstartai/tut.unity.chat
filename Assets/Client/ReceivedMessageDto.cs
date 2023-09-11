@@ -11,7 +11,10 @@ namespace Rockstart.Unity.Tut.Chat.Client
 
 		public DateTime TimestampToDateUtc()
 		{
-			return new(timestamp * TimeSpan.TicksPerSecond * 1000, DateTimeKind.Utc);
+			var timestampSec = timestamp / 1000f;
+			var timestampTicks = timestampSec * TimeSpan.TicksPerSecond;
+			var ticks = (long)(timestampTicks + .5f);  // rounding to long int
+			return new(ticks, DateTimeKind.Utc);
 		}
 	}
 }

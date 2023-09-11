@@ -22,6 +22,7 @@ namespace Rockstart.Unity.Tut.Chat
 		void Start()
 		{
 			_client = GetComponent<IChatClient>();
+			_client.SetMessageHandler(this);
 			_enterButton.onClick.AddListener(OnStartClicked);
 			_sendButton.onClick.AddListener(OnSendClicked);
 		}
