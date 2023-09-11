@@ -10,17 +10,18 @@ namespace Rockstart.Unity.Tut.Chat
 	{
 		[SerializeField] TMPro.TMP_InputField _nickInput;
 		[SerializeField] Button _enterButton;
-		[SerializeField] GameObject _nickInputPanel;
-
+		[SerializeField] CanvasGroup _nickInputPanel;
 		[SerializeField] MessagesController _msgController;
 		[SerializeField] TMPro.TMP_InputField _msgInput;
 		[SerializeField] Button _sendButton;
-		[SerializeField] ChatClient _client;
+
+		IChatClient _client;
+		string _nick;
 
 
 		void Start()
 		{
-			_client.SetMessageHandler(this);
+			_client = GetComponent<IChatClient>();
 			_enterButton.onClick.AddListener(OnStartClicked);
 			_sendButton.onClick.AddListener(OnSendClicked);
 		}
@@ -35,9 +36,11 @@ namespace Rockstart.Unity.Tut.Chat
 
 		async Task InitAsync()
 		{
-			_nickInputPanel.gameObject.SetActive(false);
-			_msgController.Init(_nickInput.text);
+			_nickInputPanel.interactable = false;
 			await _client.InitAsync();
+			_nickInputPanel.gameObject.SetActive(false);
+			_nick = _nickInput.text;
+			_msgController.Init(_nick);
 		}
 
 		void OnSendClicked()
@@ -45,18 +48,24 @@ namespace Rockstart.Unity.Tut.Chat
 			if (_msgInput.text == string.Empty)
 				return;
 
-			SendAsync(_msgInput.text);
+			var msg = new SentMessageDto
+			{
+				username = _nick,
+				text = _msgInput.text,
+			};
+
+			_ = SendAsync(msg);
 			_msgInput.text = "";
 		}
 
-		async void SendAsync(string msgData)
+		async Task SendAsync(SentMessageDto msg)
 		{
-			await _client.SendAsync(msgData);
+			await _client.SendAsync(msg);
 		}
 
-		void IMessageHandler.HandleMessage(string message)
+		void IMessageHandler.HandleMessage(ReceivedMessageDto msg)
 		{
-			_msgController.InsertMessage(new MessageModel(message));
+			_msgController.InsertMessage(msg);
 		}
 	}
 }

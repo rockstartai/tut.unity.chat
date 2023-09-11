@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 29210951}
   - component: {fileID: 29210953}
   - component: {fileID: 29210952}
+  - component: {fileID: 29210954}
   m_Layer: 5
   m_Name: NickInputPanel
   m_TagString: Untagged
@@ -201,6 +202,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29210950}
   m_CullTransparentMesh: 1
+--- !u!225 &29210954
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29210950}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &57061412
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,7 +1128,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -834.87384}
+  m_AnchoredPosition: {x: 0, y: -834.8738}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1379643624
@@ -1332,11 +1345,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nickInput: {fileID: 7211548116103740126}
   _enterButton: {fileID: 4855071134543508516}
-  _nickInputPanel: {fileID: 29210950}
+  _nickInputPanel: {fileID: 29210954}
   _msgController: {fileID: 1905871861}
   _msgInput: {fileID: 1669260918}
   _sendButton: {fileID: 4432099100422257781}
-  _client: {fileID: 1710599912}
 --- !u!114 &1710599912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1349,6 +1361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05611ed797dc05145830fecdb21a958f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _endpoint: https://jittery-duck-blazer.cyclic.app:3000
 --- !u!1 &1893923156
 GameObject:
   m_ObjectHideFlags: 0
