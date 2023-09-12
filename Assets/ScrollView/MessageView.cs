@@ -41,47 +41,35 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 
 		async UniTask CheckForImageAsync(string url, CancellationToken cancellation)
 		{
-			// Especially since webp is handled differently, it makes sense to always check headers
-			////var rgxViaImageExtension = new Regex("@(https?:)?//?[^'\"<>]+?\\.(jpg|jpeg|gif|png|webp)@");
-			////if (!rgxViaImageExtension.IsMatch(url))
-			//{
-			//	// Check for headers directly
-
-			//	using (var req = UnityWebRequest.Head(url))
-			//	{
-			//		await req.SendWebRequest();
-			//		var contentType = req.GetResponseHeader("Content-Type");
-			//		if (!contentType.StartsWith("image/"))
-			//			return;
-			//	}
-
-			//	if (cancellationToken.IsCancellationRequested)
-			//		return;
-			//}
-
-			string contentType;
-			using (var req = UnityWebRequest.Head(url))
+			try
 			{
-				await req.SendWebRequest();
-				contentType = req.GetResponseHeader("Content-Type");
+				string contentType;
+				using (var req = UnityWebRequest.Head(url))
+				{
+					await req.SendWebRequest();
+					contentType = req.GetResponseHeader("Content-Type");
+				}
+
+				if (!contentType.StartsWith("image/"))
+					return;
+
+				Texture2D tex;
+				if (contentType.StartsWith("image/webp"))
+					tex = await LoadWebpTextureAsync(url, cancellation);
+				else
+					tex = await LoadRegularTextureAsync(url, cancellation);
+
+				if (cancellation.IsCancellationRequested)
+					return;
+
+				image.sprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), Vector2.zero);
+				//image.SetNativeSize();
+				image.gameObject.SetActive(true);
 			}
-
-			if (!contentType.StartsWith("image/"))
-				return;
-
-			Texture2D tex;
-			if (contentType.StartsWith("image/webp"))
-				tex = await LoadWebpTextureAsync(url, cancellation);
-			else
-				tex = await LoadRegularTextureAsync(url, cancellation);
-
-			if (cancellation.IsCancellationRequested)
-				return;
-
-			image.sprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), Vector2.zero);
-			//image.SetNativeSize();
-			image.gameObject.SetActive(true);
-
+			catch (Exception e)
+			{
+				Debug.Log(e);
+			}
 		}
 
 		async UniTask<Texture2D> LoadRegularTextureAsync(string url, CancellationToken cancellation)
@@ -116,8 +104,10 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 			}
 			catch (Exception e)
 			{
-				Debug.LogError($"Download handler err: {req.downloadHandler.error}");
-				throw e;
+				throw new AggregateException(
+					e, 
+					new Exception($"Download handler err: {req.downloadHandler.error}")
+				);
 			}
 
 			if (cancellation.IsCancellationRequested)
