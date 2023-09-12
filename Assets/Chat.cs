@@ -1,5 +1,8 @@
+using Cysharp.Threading.Tasks;
 using Rockstart.Unity.Tut.Chat.Client;
+using Rockstart.Unity.Tut.Chat.Data;
 using Rockstart.Unity.Tut.Chat.ScrollView;
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,12 +26,13 @@ namespace Rockstart.Unity.Tut.Chat
 		void Start()
 		{
 			_client = GetComponent<IChatClient>();
-			_client.SetMessageHandler(this);
 			_enterButton.onClick.AddListener(OnStartClicked);
 			_sendButton.onClick.AddListener(OnSendClicked);
 
 			_nickInput.onSubmit.AddListener(_ => OnStartClicked());
 			_msgInput.onSubmit.AddListener(_ => OnSendClicked());
+
+			_nickInput.ActivateInputField();
 		}
 
 		void Update()
@@ -41,16 +45,24 @@ namespace Rockstart.Unity.Tut.Chat
 			if (_nickInput.text == string.Empty)
 				return;
 
-			_ = InitAsync();
+			InitAsync().Forget();
 		}
 
-		async Task InitAsync()
+		async UniTask InitAsync()
 		{
-			_nickInputPanel.interactable = false;
-			await _client.InitAsync();
-			_nickInputPanel.gameObject.SetActive(false);
-			_nick = _nickInput.text;
-			_msgController.Init(_nick);
+			try
+			{
+				_nickInputPanel.interactable = false;
+				await _client.InitAsync(this);
+				_nickInputPanel.gameObject.SetActive(false);
+				_nick = _nickInput.text;
+				_msgController.Init(_nick);
+				_msgInput.ActivateInputField();
+			}
+			catch (Exception ex)
+			{
+				Debug.LogException(ex);
+			}
 		}
 
 		bool IsInputValid()
@@ -68,31 +80,40 @@ namespace Rockstart.Unity.Tut.Chat
 			if (!CanSend())
 				return;
 
-			var msg = new SentMessageDto
+			var msg = new MessageModel
 			{
 				username = _nick,
 				text = _msgInput.text,
 			};
+
+			SendAsync(msg).Forget();
+		}
+
+		async UniTask SendAsync(MessageModel msg)
+		{
+			_msgInput.DeactivateInputField();
 			_sendButton.interactable = false;
 			_msgInput.interactable = false;
 
-			_ = SendAsync(msg);
-		}
+			try
+			{
+				await _client.SendAsync(msg);
+				_msgInput.text = "";
+			}
+			catch (Exception e)
+			{
+				Debug.LogException(e);
+			}
 
-		async Task SendAsync(SentMessageDto msg)
-		{
-			await _client.SendAsync(msg);
-
-			_msgInput.DeactivateInputField();
-			_msgInput.text = "";
 			_sendButton.interactable = true;
 			_msgInput.interactable = true;
 
+			// Allow typing next message immediately if the user has a bigger screen
 			if (!Application.isMobilePlatform)
 				_msgInput.ActivateInputField();
 		}
 
-		void IMessageHandler.HandleMessage(ReceivedMessageDto msg)
+		void IMessageHandler.HandleMessage(MessageModel msg)
 		{
 			_msgController.InsertMessage(msg);
 		}

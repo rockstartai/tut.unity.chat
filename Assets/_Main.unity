@@ -929,7 +929,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 60753171}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999018
+  m_Size: 0.99986094
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1366,10 +1366,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1710599909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05611ed797dc05145830fecdb21a958f, type: 3}
+  m_Script: {fileID: 11500000, guid: a4e0e8aa86a3c584f8c21cfabe28eeab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _endpoint: https://jittery-duck-blazer.cyclic.app
+  _endpoint: https://rockstartai-tut-unity-chat-default-rtdb.europe-west1.firebasedatabase.app
 --- !u!1 &1893923156
 GameObject:
   m_ObjectHideFlags: 0

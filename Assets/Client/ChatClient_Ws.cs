@@ -1,7 +1,7 @@
+using Cysharp.Threading.Tasks;
 using NativeWebSocket;
-using Rockstart.Unity.Tut.Chat.ScrollView;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Rockstart.Unity.Tut.Chat.Data;
+using System;
 using UnityEngine;
 
 namespace Rockstart.Unity.Tut.Chat.Client
@@ -16,8 +16,9 @@ namespace Rockstart.Unity.Tut.Chat.Client
 		bool _isInitialized;
 
 
-		async Task IChatClient.InitAsync()
+		async UniTask IChatClient.InitAsync(IMessageHandler messageHandler)
 		{
+			_messageHandler = messageHandler;
 			_websocket = new WebSocket(_endpoint);
 
 			_websocket.OnOpen += () =>
@@ -41,7 +42,7 @@ namespace Rockstart.Unity.Tut.Chat.Client
 				var message = System.Text.Encoding.UTF8.GetString(bytes);
 				Debug.Log("Received! " + message);
 
-				var msg = JsonUtility.FromJson<ReceivedMessageDto>(message);
+				var msg = JsonUtility.FromJson<MessageModel>(message);
 				_messageHandler.HandleMessage(msg);
 			};
 
@@ -58,15 +59,10 @@ namespace Rockstart.Unity.Tut.Chat.Client
 #endif
 		}
 
-		void IChatClient.SetMessageHandler(IMessageHandler messageHandler)
-		{
-			_messageHandler = messageHandler;
-		}
-
-		async Task IChatClient.SendAsync(SentMessageDto msg)
+		async UniTask IChatClient.SendAsync(MessageModel msg)
 		{
 			if (_websocket.State != WebSocketState.Open)
-				return;
+				throw new Exception("not open");
 
 			var json = JsonUtility.ToJson(msg);
 			await _websocket.SendText(json);
@@ -77,6 +73,10 @@ namespace Rockstart.Unity.Tut.Chat.Client
 			await _websocket.Close();
 			_websocket = null;
 			_isInitialized = false;
+		}
+
+		public void Dispose()
+		{
 		}
 	}
 }

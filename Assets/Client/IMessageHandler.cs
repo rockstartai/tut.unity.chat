@@ -1,8 +1,10 @@
 
+using Rockstart.Unity.Tut.Chat.Data;
+
 namespace Rockstart.Unity.Tut.Chat.Client
 {
 	public interface IMessageHandler
 	{ 
-		void HandleMessage(ReceivedMessageDto msg);
+		void HandleMessage(MessageModel msg);
 	}
 }
