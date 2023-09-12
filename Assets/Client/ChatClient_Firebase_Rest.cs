@@ -14,7 +14,7 @@ namespace Rockstart.Unity.Tut.Chat.Client
 		[SerializeField] string _endpoint;
 
 		// Use a reliable timestamp provider instead of user's device
-		const string TIMESTAMP_URL = "http://worldtimeapi.org/api/timezone/Etc/UTC";
+		const string TIMESTAMP_URL = "https://worldtimeapi.org/api/timezone/Etc/UTC";
 
 		string _chatDbUrl;
 		IMessageHandler _messageHandler;
