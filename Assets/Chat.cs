@@ -3,6 +3,7 @@ using Rockstart.Unity.Tut.Chat.Client;
 using Rockstart.Unity.Tut.Chat.Data;
 using Rockstart.Unity.Tut.Chat.ScrollView;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -120,9 +121,9 @@ namespace Rockstart.Unity.Tut.Chat
 				_msgInput.ActivateInputField();
 		}
 
-		void IMessageHandler.HandleMessage(MessageModel msg)
+		void IMessageHandler.HandleMessages(IList<MessageModel> messages)
 		{
-			_msgController.InsertMessage(msg);
+			_msgController.InsertMessages(messages);
 		}
 	}
 }

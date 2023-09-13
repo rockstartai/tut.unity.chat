@@ -1,10 +1,12 @@
 
 using Rockstart.Unity.Tut.Chat.Data;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Rockstart.Unity.Tut.Chat.Client
 {
 	public interface IMessageHandler
 	{ 
-		void HandleMessage(MessageModel msg);
+		void HandleMessages(IList<MessageModel> messages);
 	}
 }

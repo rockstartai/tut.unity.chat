@@ -89,16 +89,15 @@ namespace Rockstart.Unity.Tut.Chat.Client
 				var messages = new List<MessageModel>(messagesDict.Values);
 				// Firebase docs state that the returned items aren't sorted, even though they correctly obey orderBy and startAt
 				messages.Sort((a, b) => a.timestamp - b.timestamp < 0 ? -1 : 1);
-				
+
 				// Handle new messages since last handled one
-				foreach (var msg in messages)
-				{
-					if (msg.timestamp > _lastHandledTimestamp)
-					{
-						_messageHandler?.HandleMessage(msg);
-						_lastHandledTimestamp = msg.timestamp;
-					}
-				}
+				messages = messages.FindAll(msg => msg.timestamp > _lastHandledTimestamp);
+
+				if (messages.Count == 0)
+					return null;
+
+				_messageHandler?.HandleMessages(messages);
+				_lastHandledTimestamp = messages[^1].timestamp;
 			}
 
 			return null;

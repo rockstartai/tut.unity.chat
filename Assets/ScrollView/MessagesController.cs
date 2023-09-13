@@ -1,5 +1,6 @@
 using Rockstart.Unity.Tut.Chat.Data;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Rockstart.Unity.Tut.Chat.ScrollView
@@ -18,12 +19,15 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 			_nick = nick;
 		}
 
-		public void InsertMessage(MessageModel msg)
+		public void InsertMessages(IList<MessageModel> messages)
 		{
-			var prefab = PickPrefabFor(msg);
-			var instanceGo = Instantiate(prefab, _content, worldPositionStays: false);
-			var view = instanceGo.GetComponent<MessageView>();
-			view.UpdateViews(msg);
+			foreach (var msg in messages)
+			{
+				var prefab = PickPrefabFor(msg);
+				var instanceGo = Instantiate(prefab, _content, worldPositionStays: false);
+				var view = instanceGo.GetComponent<MessageView>();
+				view.UpdateViews(msg);
+			}
 		}
 
 		GameObject PickPrefabFor(MessageModel msg)
