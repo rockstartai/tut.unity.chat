@@ -13,9 +13,10 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 		public TMPro.TextMeshProUGUI username;
 		public TMPro.TextMeshProUGUI text;
 		public TMPro.TextMeshProUGUI date;
-		public RectTransform imageContainer;
+		public LayoutElement imageContainer;
 		public RawImage image;
 		public AspectRatioFitter imageASR;
+		public float maxImageHeight = 500f;
 
 
 		public void UpdateViews(MessageModel msg)
@@ -24,7 +25,7 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 
 			// Hyperlinking URLs, thanks: https://stackoverflow.com/a/36661544
 			var rgxUrls = new Regex("(((http|ftp|https):\\/\\/)?[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:\\/~\\+#]*[\\w\\-\\@?^=%&amp;\\/~\\+#])?)");
-			string textWithHyperlinks = rgxUrls.Replace(msg.text, "<link=\"$1\"> $1 </link>");
+			string textWithHyperlinks = rgxUrls.Replace(msg.text, "<link=\"$1\">$1</link>");
 			text.text = textWithHyperlinks;
 
 			// Load the image from the first encountered URL
@@ -62,17 +63,12 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 
 		void UpdateImageAspectRatio()
 		{
-			//var layElem = image.GetComponent<LayoutElement>();
-			//var height = layElem.preferredHeight;
 			var tex = image.texture;
 			float aspectRatio = (float)tex.width / tex.height;
 			imageASR.aspectRatio = aspectRatio;
 
-			//layElem.preferredWidth = height * aspectRatio;
-
-			////image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
-
-			////image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, height * aspectRatio);
+			var containerWidth = (imageContainer.transform as RectTransform).rect.width;
+			imageContainer.preferredHeight = Mathf.Min(maxImageHeight, containerWidth / aspectRatio);
 		}
 	}
 }

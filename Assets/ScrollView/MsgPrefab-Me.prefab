@@ -8,6 +8,26 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1829848482399429260, guid: 65d5d7d1142c5444c94a2d8c184e2a03, type: 3}
+      propertyPath: m_Pivot.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829848482399429260, guid: 65d5d7d1142c5444c94a2d8c184e2a03, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829848482399429260, guid: 65d5d7d1142c5444c94a2d8c184e2a03, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -36.22061
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829848482399429260, guid: 65d5d7d1142c5444c94a2d8c184e2a03, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829848482399429260, guid: 65d5d7d1142c5444c94a2d8c184e2a03, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000030517578
+      objectReference: {fileID: 0}
     - target: {fileID: 2423817023182958352, guid: 65d5d7d1142c5444c94a2d8c184e2a03, type: 3}
       propertyPath: m_Pivot.x
       value: 1
