@@ -11,7 +11,7 @@ namespace Rockstart.Unity.Tut.Chat
 {
 	public class ImageLoader
 	{
-		public async UniTask LoadImageAsync(string url, Image into, CancellationToken cancellation)
+		public async UniTask LoadImageAsync(string url, RawImage into, CancellationToken cancellation)
 		{
 			try
 			{
@@ -57,7 +57,8 @@ namespace Rockstart.Unity.Tut.Chat
 				if (!into)
 					return;
 
-				into.sprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), Vector2.zero);
+				//into.sprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), Vector2.zero);
+				into.texture = tex;
 				into.gameObject.SetActive(true);
 			}
 			catch (Exception e)

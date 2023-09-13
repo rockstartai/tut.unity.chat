@@ -1,6 +1,8 @@
 using Cysharp.Threading.Tasks;
 using Rockstart.Unity.Tut.Chat.Data;
+using System;
 using System.Text.RegularExpressions;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +13,9 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 		public TMPro.TextMeshProUGUI username;
 		public TMPro.TextMeshProUGUI text;
 		public TMPro.TextMeshProUGUI date;
-		public Image image;
+		public RectTransform imageContainer;
+		public RawImage image;
+		public AspectRatioFitter imageASR;
 
 
 		public void UpdateViews(MessageModel msg)
@@ -28,12 +32,47 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 			if (match.Success)
 			{
 				var imgUrl = match.Value;
-				var cancelToken = this.GetCancellationTokenOnDestroy();
-				new ImageLoader().LoadImageAsync(imgUrl, image, cancelToken).Forget();
+				var ct = this.GetCancellationTokenOnDestroy();
+
+				LoadImageAsync(imgUrl, ct).Forget();
 			}
 
 			var msgDate = msg.TimestampToDateUtc();
 			date.text = msgDate.ToShortTimeString() + " " + msgDate.ToShortDateString();
+		}
+
+		async UniTask LoadImageAsync(string url, CancellationToken ct)
+		{
+			try
+			{
+				await new ImageLoader().LoadImageAsync(url, image, ct);
+
+				if (ct.IsCancellationRequested)
+					return;
+
+				UpdateImageAspectRatio();
+				imageContainer.gameObject.SetActive(true);
+			}
+			catch (Exception e)
+			{
+				Debug.Log(e);
+			}
+		}
+
+
+		void UpdateImageAspectRatio()
+		{
+			//var layElem = image.GetComponent<LayoutElement>();
+			//var height = layElem.preferredHeight;
+			var tex = image.texture;
+			float aspectRatio = (float)tex.width / tex.height;
+			imageASR.aspectRatio = aspectRatio;
+
+			//layElem.preferredWidth = height * aspectRatio;
+
+			////image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+
+			////image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, height * aspectRatio);
 		}
 	}
 }
