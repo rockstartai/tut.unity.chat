@@ -54,6 +54,7 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 				UpdateImageAspectRatio();
 				imageContainer.gameObject.SetActive(true);
 			}
+			catch (UnityWebRequestException) { /* Network-related stuff isn't a concern */}
 			catch (Exception e)
 			{
 				Debug.Log(e);

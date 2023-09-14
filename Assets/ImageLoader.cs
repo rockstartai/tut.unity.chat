@@ -13,28 +13,21 @@ namespace Rockstart.Unity.Tut.Chat
 	{
 		public async UniTask LoadImageAsync(string url, RawImage into, CancellationToken cancellation)
 		{
-			try
+			var imgInfo = await FindImageUrlAndContentTypeAsync(url, cancellation);
+			if (imgInfo.url == null || cancellation.IsCancellationRequested)
+				return;
+
+			var tex = await DownloadImageAsync(imgInfo.url, imgInfo.contentType, cancellation);
+			if (!tex)
+				return;
+
+			if (!into || cancellation.IsCancellationRequested)
 			{
-				var imgInfo = await FindImageUrlAndContentTypeAsync(url, cancellation);
-				if (imgInfo.url == null || cancellation.IsCancellationRequested)
-					return;
-
-				var tex = await DownloadImageAsync(imgInfo.url, imgInfo.contentType, cancellation);
-				if (!tex)
-					return;
-
-				if (!into || cancellation.IsCancellationRequested)
-				{
-					UnityEngine.Object.Destroy(tex);
-					return;
-				}
-
-				into.texture = tex;
+				UnityEngine.Object.Destroy(tex);
+				return;
 			}
-			catch (Exception e)
-			{
-				Debug.Log(e);
-			}
+
+			into.texture = tex;
 		}
 
 		async UniTask<(string url, string contentType)> FindImageUrlAndContentTypeAsync(string url, CancellationToken cancellation)
@@ -148,17 +141,7 @@ namespace Rockstart.Unity.Tut.Chat
 
 		async UniTask SendRequest(UnityWebRequest req, CancellationToken cancellation)
 		{
-			try
-			{
-				await req.SendWebRequest();
-			}
-			catch (Exception e)
-			{
-				throw new AggregateException(
-					e,
-					new Exception($"Download handler err: {req.downloadHandler.error}")
-				);
-			}
+			await req.SendWebRequest();
 
 			if (cancellation.IsCancellationRequested)
 				return;
