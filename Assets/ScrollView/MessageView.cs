@@ -46,7 +46,7 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 		{
 			try
 			{
-				await new ImageLoader().LoadImageAsync(url, image, ct);
+				await new GrabTex().LoadImageAsync(url, image, ct);
 
 				if (ct.IsCancellationRequested)
 					return;

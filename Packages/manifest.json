@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
-    "com.endel.nativewebsocket": "https://github.com/endel/NativeWebSocket.git#upm",
+    "com.netpyoung.webp": "https://github.com/netpyoung/unity.webp.git?path=unity_project/Assets/unity.webp#0.3.9",
     "com.unity.collab-proxy": "1.17.7",
     "com.unity.feature.development": "1.0.1",
     "com.unity.ide.rider": "3.0.16",
@@ -44,16 +44,13 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0",
-    "com.netpyoung.webp": "https://github.com/netpyoung/unity.webp.git?path=unity_project/Assets/unity.webp#0.3.9",
-    "org.nuget.system.runtime.compilerservices.unsafe": "6.0.0"
+	"com.xucian.upm.grabtex": "https://github.com/xucian/upm-grabtex.git#v0.0.6-upm"
   },
-  "scopedRegistries": [
-    {
-      "name": "Unity NuGet",
-      "url": "https://unitynuget-registry.azurewebsites.net",
-      "scopes": [
-        "org.nuget"
-      ]
-    }
-  ]
+  "scopedRegistries": [{
+    "name": "Unity NuGet",
+    "url": "https://unitynuget-registry.azurewebsites.net",
+    "scopes": [
+      "org.nuget"
+    ]
+  }]
 }

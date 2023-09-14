@@ -5,14 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c170af5642889b9034b8f910c1a61a4939103ba5"
-    },
-    "com.endel.nativewebsocket": {
-      "version": "https://github.com/endel/NativeWebSocket.git#upm",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "c5101c07762251edc82caad9e8a39d51b1229c31"
+      "hash": "64f7eec4e9e451b07ba0c56a152efaca88b6be17"
     },
     "com.netpyoung.webp": {
       "version": "https://github.com/netpyoung/unity.webp.git?path=unity_project/Assets/unity.webp#0.3.9",
@@ -202,9 +195,20 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.xucian.upm.grabtex": {
+      "version": "https://github.com/xucian/upm-grabtex.git#v0.0.6-upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.cysharp.unitask": "2.4.0",
+        "com.netpyoung.webp": "0.3.9",
+        "org.nuget.system.runtime.compilerservices.unsafe": "6.0.0"
+      },
+      "hash": "db5c491b0215f5886ac48a64499f217f7523d61a"
+    },
     "org.nuget.system.runtime.compilerservices.unsafe": {
       "version": "6.0.0",
-      "depth": 0,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://unitynuget-registry.azurewebsites.net"
