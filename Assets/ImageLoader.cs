@@ -15,56 +15,60 @@ namespace Rockstart.Unity.Tut.Chat
 		{
 			try
 			{
-				var contentType = await GetContentTypeAsync(url);
-				string imageContentType;
-				string imageUrl;
-
-				if (contentType.StartsWith("image/"))
-				{
-					imageContentType = contentType;
-					imageUrl = url;
-				}
-				else if (contentType.StartsWith("text/html"))
-				{
-					imageUrl = await FindImageInHtmlAsync(url, cancellation);
-
-					if (imageUrl == null)
-						return;
-
-					if (cancellation.IsCancellationRequested)
-						return;
-
-					imageContentType = await GetContentTypeAsync(imageUrl);
-				}
-				else
-				{
-					return;
-				}
-
-				if (cancellation.IsCancellationRequested)
+				var imgInfo = await FindImageUrlAndContentTypeAsync(url, cancellation);
+				if (imgInfo.url == null || cancellation.IsCancellationRequested)
 					return;
 
-				var tex = await DownloadImageAsync(imageUrl, imageContentType, cancellation);
-				if (!tex) 
+				var tex = await DownloadImageAsync(imgInfo.url, imgInfo.contentType, cancellation);
+				if (!tex)
 					return;
 
-				if (cancellation.IsCancellationRequested)
+				if (!into || cancellation.IsCancellationRequested)
 				{
 					UnityEngine.Object.Destroy(tex);
 					return;
 				}
 
-				if (!into)
-					return;
-
-				//into.sprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), Vector2.zero);
 				into.texture = tex;
-				into.gameObject.SetActive(true);
 			}
 			catch (Exception e)
 			{
 				Debug.Log(e);
 			}
+		}
+
+		async UniTask<(string url, string contentType)> FindImageUrlAndContentTypeAsync(string url, CancellationToken cancellation)
+		{
+			var contentType = await GetContentTypeAsync(url);
+			string imageContentType;
+			string imageUrl;
+
+			if (contentType.StartsWith("image/"))
+			{
+				imageContentType = contentType;
+				imageUrl = url;
+			}
+			else if (contentType.StartsWith("text/html"))
+			{
+				imageUrl = await FindImageInHtmlAsync(url, cancellation);
+
+				if (imageUrl == null)
+					return (null, null);
+
+				if (cancellation.IsCancellationRequested)
+					return (null, null);
+
+				imageContentType = await GetContentTypeAsync(imageUrl);
+			}
+			else
+			{
+				return (null, null);
+			}
+
+			if (cancellation.IsCancellationRequested)
+				return (null, null);
+
+			return (imageUrl, imageContentType);
 		}
 
 		async UniTask<Texture2D> DownloadImageAsync(string url, string contentType, CancellationToken cancellation)
@@ -75,18 +79,9 @@ namespace Rockstart.Unity.Tut.Chat
 				Texture2D tex;
 
 				if (contentType.StartsWith("image/webp"))
-					tex = await LoadWebpTextureAsync(url, cancellation);
+					tex = await DownloadWebpImageAsync(url, cancellation);
 				else
-					tex = await LoadRegularTextureAsync(url, cancellation);
-
-				if (!tex)
-					return null;
-
-				if (cancellation.IsCancellationRequested)
-				{
-					UnityEngine.Object.Destroy(tex);
-					return null;
-				}
+					tex = await DownloadRegularImageAsync(url, cancellation);
 
 				return tex;
 			}
@@ -126,7 +121,7 @@ namespace Rockstart.Unity.Tut.Chat
 			return ogImageUrl;
 		}
 
-		async UniTask<Texture2D> LoadRegularTextureAsync(string url, CancellationToken cancellation)
+		async UniTask<Texture2D> DownloadRegularImageAsync(string url, CancellationToken cancellation)
 		{
 			using (var req = UnityWebRequestTexture.GetTexture(url))
 			{
@@ -138,7 +133,7 @@ namespace Rockstart.Unity.Tut.Chat
 			}
 		}
 
-		async UniTask<Texture2D> LoadWebpTextureAsync(string url, CancellationToken cancellation)
+		async UniTask<Texture2D> DownloadWebpImageAsync(string url, CancellationToken cancellation)
 		{
 			using (var req = UnityWebRequest.Get(url))
 			{
@@ -160,7 +155,7 @@ namespace Rockstart.Unity.Tut.Chat
 			catch (Exception e)
 			{
 				throw new AggregateException(
-					e, 
+					e,
 					new Exception($"Download handler err: {req.downloadHandler.error}")
 				);
 			}
