@@ -59,18 +59,11 @@ namespace Rockstart.Unity.Tut.Chat
 				_nick = _nickInput.text;
 				_msgController.Init(_nick);
 				_msgInput.ActivateInputField();
-				SendGreeting();
 			}
 			catch (Exception ex)
 			{
 				Debug.LogException(ex);
 			}
-		}
-
-		void SendGreeting()
-		{
-			_msgInput.text = "(joined)";
-			OnSendClicked();
 		}
 
 		bool IsInputValid()
