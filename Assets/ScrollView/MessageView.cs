@@ -52,8 +52,8 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 				if (ct.IsCancellationRequested || !image.texture)
 					return;
 
-				UpdateImageAspectRatio();
 				imageContainer.gameObject.SetActive(true);
+				UpdateImageAspectRatio();
 			}
 			catch (UnityWebRequestException) { /* Network-related stuff isn't a concern */}
 			catch (Exception e)
