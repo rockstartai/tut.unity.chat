@@ -1,3 +1,4 @@
+using com.xucian.upm.grabtex;
 using Cysharp.Threading.Tasks;
 using Rockstart.Unity.Tut.Chat.Data;
 using System;
@@ -46,9 +47,9 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 		{
 			try
 			{
-				await new GrabTex().LoadImageAsync(url, image, ct);
+				await new GrabTex().IntoAsync(url, image, ct);
 
-				if (ct.IsCancellationRequested)
+				if (ct.IsCancellationRequested || !image.texture)
 					return;
 
 				UpdateImageAspectRatio();
