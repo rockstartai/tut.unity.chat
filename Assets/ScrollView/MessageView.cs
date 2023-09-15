@@ -14,9 +14,9 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 		public TMPro.TextMeshProUGUI username;
 		public TMPro.TextMeshProUGUI text;
 		public TMPro.TextMeshProUGUI date;
-		public LayoutElement imageContainer;
+		public LayoutElement imageLayoutElement;
 		public RawImage image;
-		public AspectRatioFitter imageASR;
+		public LayoutGroup layoutGroup;
 		public float maxImageHeight = 500f;
 
 
@@ -52,7 +52,7 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 				if (ct.IsCancellationRequested || !image.texture)
 					return;
 
-				imageContainer.gameObject.SetActive(true);
+				imageLayoutElement.gameObject.SetActive(true);
 				UpdateImageAspectRatio();
 			}
 			catch (UnityWebRequestException) { /* Network-related stuff isn't a concern */}
@@ -62,15 +62,17 @@ namespace Rockstart.Unity.Tut.Chat.ScrollView
 			}
 		}
 
-
 		void UpdateImageAspectRatio()
 		{
 			var tex = image.texture;
 			float aspectRatio = (float)tex.width / tex.height;
-			imageASR.aspectRatio = aspectRatio;
 
-			var containerWidth = (imageContainer.transform as RectTransform).rect.width;
-			imageContainer.preferredHeight = Mathf.Min(maxImageHeight, containerWidth / aspectRatio);
+			var availWidth = (layoutGroup.transform as RectTransform).rect.width;
+			availWidth -= layoutGroup.padding.horizontal;
+			var height = availWidth / aspectRatio;
+			height = Mathf.Min(maxImageHeight, height);
+			imageLayoutElement.preferredHeight = height;
+			imageLayoutElement.preferredWidth = height * aspectRatio;
 		}
 	}
 }

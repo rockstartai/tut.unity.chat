@@ -1,72 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &445433576127459588
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7493340994726694605}
-  - component: {fileID: 2210961108525557865}
-  - component: {fileID: 93816869187235922}
-  m_Layer: 5
-  m_Name: ImageContainer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &7493340994726694605
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 445433576127459588}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1829848482399429260}
-  m_Father: {fileID: 3144785797005009307}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 161.8897, y: -264.74}
-  m_SizeDelta: {x: 313.7794, y: 300}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2210961108525557865
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 445433576127459588}
-  m_CullTransparentMesh: 1
---- !u!114 &93816869187235922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 445433576127459588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: -1
-  m_PreferredHeight: 500
-  m_FlexibleWidth: 1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
 --- !u!1 &3144785795976713201
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,9 +224,9 @@ MonoBehaviour:
   username: {fileID: 3144785795976713202}
   text: {fileID: 3144785796415051548}
   date: {fileID: 3144785796504872229}
-  imageContainer: {fileID: 93816869187235922}
+  imageLayoutElement: {fileID: 5198367305114775464}
   image: {fileID: 3444732380264619700}
-  imageASR: {fileID: 5665067054665740701}
+  layoutGroup: {fileID: 6843946517418768510}
   maxImageHeight: 500
 --- !u!1 &3144785796415051546
 GameObject:
@@ -629,7 +562,7 @@ RectTransform:
   m_Children:
   - {fileID: 3144785795976713200}
   - {fileID: 3144785796415051549}
-  - {fileID: 7493340994726694605}
+  - {fileID: 1829848482399429260}
   - {fileID: 3144785796504872227}
   m_Father: {fileID: 3144785796350627675}
   m_RootOrder: -1
@@ -714,14 +647,14 @@ GameObject:
   - component: {fileID: 1829848482399429260}
   - component: {fileID: 2521918089093467131}
   - component: {fileID: 3444732380264619700}
-  - component: {fileID: 5665067054665740701}
+  - component: {fileID: 5198367305114775464}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1829848482399429260
 RectTransform:
   m_ObjectHideFlags: 0
@@ -734,13 +667,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7493340994726694605}
+  m_Father: {fileID: 3144785797005009307}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -13.779388, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 313.7794, y: -119.74}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2521918089093467131
 CanvasRenderer:
@@ -777,7 +710,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &5665067054665740701
+--- !u!114 &5198367305114775464
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -786,8 +719,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4145194631377363239}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AspectMode: 3
-  m_AspectRatio: 1
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
