@@ -1,23 +1,23 @@
 using Cysharp.Threading.Tasks;
-using Rockstart.Unity.Tut.Chat.Client;
-using Rockstart.Unity.Tut.Chat.Data;
-using Rockstart.Unity.Tut.Chat.ScrollView;
+using com.forbiddenbyte.tut.unity.chat.Client;
+using com.forbiddenbyte.tut.unity.chat.Data;
+using com.forbiddenbyte.tut.unity.chat.ScrollView;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Rockstart.Unity.Tut.Chat
+namespace com.forbiddenbyte.tut.unity.chat
 {
 	public class Chat : MonoBehaviour, IMessageHandler
 	{
-		[SerializeField] TMPro.TMP_InputField _nickInput;
-		[SerializeField] Button _enterButton;
-		[SerializeField] CanvasGroup _nickInputPanel;
-		[SerializeField] MessagesController _msgController;
-		[SerializeField] TMPro.TMP_InputField _msgInput;
-		[SerializeField] Button _sendButton;
+		public TMPro.TMP_InputField nickInput;
+		public Button enterButton;
+		public CanvasGroup nickInputPanel;
+		public MessagesController msgController;
+		public TMPro.TMP_InputField msgInput;
+		public Button sendButton;
 
 		bool _isSending;
 		IChatClient _client;
@@ -27,23 +27,23 @@ namespace Rockstart.Unity.Tut.Chat
 		void Start()
 		{
 			_client = GetComponent<IChatClient>();
-			_enterButton.onClick.AddListener(OnStartClicked);
-			_sendButton.onClick.AddListener(OnSendClicked);
+			enterButton.onClick.AddListener(OnStartClicked);
+			sendButton.onClick.AddListener(OnSendClicked);
 
-			_nickInput.onSubmit.AddListener(_ => OnStartClicked());
-			_msgInput.onSubmit.AddListener(_ => OnSendClicked());
+			nickInput.onSubmit.AddListener(_ => OnStartClicked());
+			msgInput.onSubmit.AddListener(_ => OnSendClicked());
 
-			_nickInput.ActivateInputField();
+			nickInput.ActivateInputField();
 		}
 
 		void Update()
 		{
-			_sendButton.interactable = CanSend();
+			sendButton.interactable = CanSend();
 		}
 
 		void OnStartClicked()
 		{
-			if (_nickInput.text == string.Empty)
+			if (nickInput.text == string.Empty)
 				return;
 
 			InitAsync().Forget();
@@ -53,12 +53,12 @@ namespace Rockstart.Unity.Tut.Chat
 		{
 			try
 			{
-				_nickInputPanel.interactable = false;
+				nickInputPanel.interactable = false;
 				await _client.InitAsync(this);
-				_nickInputPanel.gameObject.SetActive(false);
-				_nick = _nickInput.text;
-				_msgController.Init(_nick);
-				_msgInput.ActivateInputField();
+				nickInputPanel.gameObject.SetActive(false);
+				_nick = nickInput.text;
+				msgController.Init(_nick);
+				msgInput.ActivateInputField();
 			}
 			catch (Exception ex)
 			{
@@ -68,7 +68,7 @@ namespace Rockstart.Unity.Tut.Chat
 
 		bool IsInputValid()
 		{
-			return _msgInput.text != string.Empty;
+			return msgInput.text != string.Empty;
 		}
 
 		bool CanSend()
@@ -84,7 +84,7 @@ namespace Rockstart.Unity.Tut.Chat
 			var msg = new MessageModel
 			{
 				username = _nick,
-				text = _msgInput.text,
+				text = msgInput.text,
 			};
 
 			SendAsync(msg).Forget();
@@ -92,31 +92,31 @@ namespace Rockstart.Unity.Tut.Chat
 
 		async UniTask SendAsync(MessageModel msg)
 		{
-			_msgInput.DeactivateInputField();
-			_sendButton.interactable = false;
-			_msgInput.interactable = false;
+			msgInput.DeactivateInputField();
+			sendButton.interactable = false;
+			msgInput.interactable = false;
 
 			try
 			{
 				await _client.SendAsync(msg);
-				_msgInput.text = "";
+				msgInput.text = "";
 			}
 			catch (Exception e)
 			{
 				Debug.LogException(e);
 			}
 
-			_sendButton.interactable = true;
-			_msgInput.interactable = true;
+			sendButton.interactable = true;
+			msgInput.interactable = true;
 
 			// Allow typing next message immediately if the user has a bigger screen
 			if (!Application.isMobilePlatform)
-				_msgInput.ActivateInputField();
+				msgInput.ActivateInputField();
 		}
 
 		void IMessageHandler.HandleMessages(IList<MessageModel> messages)
 		{
-			_msgController.InsertMessages(messages);
+			msgController.InsertMessages(messages);
 		}
 	}
 }

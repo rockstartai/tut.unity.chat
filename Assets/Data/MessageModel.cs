@@ -1,6 +1,6 @@
 using System;
 
-namespace Rockstart.Unity.Tut.Chat.Data
+namespace com.forbiddenbyte.tut.unity.chat.Data
 {
 	public class MessageModel
 	{

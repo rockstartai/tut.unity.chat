@@ -1,8 +1,8 @@
 using Cysharp.Threading.Tasks;
-using Rockstart.Unity.Tut.Chat.Data;
+using com.forbiddenbyte.tut.unity.chat.Data;
 using System;
 
-namespace Rockstart.Unity.Tut.Chat.Client
+namespace com.forbiddenbyte.tut.unity.chat.Client
 {
 	public interface IChatClient : IDisposable
 	{

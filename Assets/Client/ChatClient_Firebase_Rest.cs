@@ -1,13 +1,13 @@
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Rockstart.Unity.Tut.Chat.Data;
+using com.forbiddenbyte.tut.unity.chat.Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Rockstart.Unity.Tut.Chat.Client
+namespace com.forbiddenbyte.tut.unity.chat.Client
 {
 	public class ChatClient_Firebase_Rest : MonoBehaviour, IChatClient
 	{

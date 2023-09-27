@@ -1,9 +1,9 @@
-using Rockstart.Unity.Tut.Chat.Data;
+using com.forbiddenbyte.tut.unity.chat.Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Rockstart.Unity.Tut.Chat.ScrollView
+namespace com.forbiddenbyte.tut.unity.chat.ScrollView
 {
 	public class MessagesController : MonoBehaviour
 	{

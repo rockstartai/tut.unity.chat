@@ -1229,12 +1229,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ac69ef6a13fad489c5f8e0cf9fd8f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nickInput: {fileID: 7211548116103740126}
-  _enterButton: {fileID: 4855071134543508516}
-  _nickInputPanel: {fileID: 29210954}
-  _msgController: {fileID: 1905871861}
-  _msgInput: {fileID: 1669260918}
-  _sendButton: {fileID: 4432099100422257781}
+  nickInput: {fileID: 7211548116103740126}
+  enterButton: {fileID: 4855071134543508516}
+  nickInputPanel: {fileID: 29210954}
+  msgController: {fileID: 1905871861}
+  msgInput: {fileID: 1669260918}
+  sendButton: {fileID: 4432099100422257781}
 --- !u!114 &1710599912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1247,7 +1247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e0e8aa86a3c584f8c21cfabe28eeab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _endpoint: https://rockstartai-tut-unity-chat-default-rtdb.europe-west1.firebasedatabase.app
+  _endpoint: '! Input your url here !'
 --- !u!1 &1905871856
 GameObject:
   m_ObjectHideFlags: 0
