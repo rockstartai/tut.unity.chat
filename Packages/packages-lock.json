@@ -196,7 +196,7 @@
       "url": "https://packages.unity.com"
     },
     "com.xucian.upm.grabtex": {
-      "version": "https://github.com/xucian/upm-grabtex.git#v0.0.12-upm",
+      "version": "https://github.com/xucian/upm-grabtex.git#v0.0.13-upm",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -204,7 +204,7 @@
         "com.netpyoung.webp": "0.3.9",
         "org.nuget.system.runtime.compilerservices.unsafe": "6.0.0"
       },
-      "hash": "9d651a6af6ce58969b1e3e85dd94aa02f37aac23"
+      "hash": "50ae3d0f78349ee693a44b353b39069e839038a9"
     },
     "org.nuget.system.runtime.compilerservices.unsafe": {
       "version": "6.0.0",
