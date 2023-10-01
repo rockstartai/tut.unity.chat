@@ -1,13 +1,13 @@
 using com.xucian.upm.grabtex;
 using Cysharp.Threading.Tasks;
-using com.forbiddenbyte.tut.unity.chat.Data;
+using Com.ForbiddenByte.Tut.Unity.Chat.Data;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace com.forbiddenbyte.tut.unity.chat.ScrollView
+namespace Com.ForbiddenByte.Tut.Unity.Chat.ScrollView
 {
 	public class MessageView: MonoBehaviour
 	{

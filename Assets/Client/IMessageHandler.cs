@@ -1,9 +1,9 @@
 
-using com.forbiddenbyte.tut.unity.chat.Data;
+using Com.ForbiddenByte.Tut.Unity.Chat.Data;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace com.forbiddenbyte.tut.unity.chat.Client
+namespace Com.ForbiddenByte.Tut.Unity.Chat.Client
 {
 	public interface IMessageHandler
 	{ 

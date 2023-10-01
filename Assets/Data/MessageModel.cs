@@ -1,6 +1,6 @@
 using System;
 
-namespace com.forbiddenbyte.tut.unity.chat.Data
+namespace Com.ForbiddenByte.Tut.Unity.Chat.Data
 {
 	public class MessageModel
 	{

@@ -1,14 +1,14 @@
 using Cysharp.Threading.Tasks;
-using com.forbiddenbyte.tut.unity.chat.Client;
-using com.forbiddenbyte.tut.unity.chat.Data;
-using com.forbiddenbyte.tut.unity.chat.ScrollView;
+using Com.ForbiddenByte.Tut.Unity.Chat.Client;
+using Com.ForbiddenByte.Tut.Unity.Chat.Data;
+using Com.ForbiddenByte.Tut.Unity.Chat.ScrollView;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace com.forbiddenbyte.tut.unity.chat
+namespace Com.ForbiddenByte.Tut.Unity.Chat
 {
 	public class Chat : MonoBehaviour, IMessageHandler
 	{

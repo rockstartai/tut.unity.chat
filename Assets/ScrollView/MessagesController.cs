@@ -1,9 +1,9 @@
-using com.forbiddenbyte.tut.unity.chat.Data;
+using Com.ForbiddenByte.Tut.Unity.Chat.Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace com.forbiddenbyte.tut.unity.chat.ScrollView
+namespace Com.ForbiddenByte.Tut.Unity.Chat.ScrollView
 {
 	public class MessagesController : MonoBehaviour
 	{
